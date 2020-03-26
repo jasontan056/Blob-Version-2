@@ -1,4 +1,4 @@
-const FRICTION_CONSTANT = .01;
+const FRICTION_CONSTANT = 0.3;
 const MAX_SPEED = 100;
 
 class Vertex {
@@ -26,13 +26,20 @@ class Vertex {
   }
 
   #calcFrictionForce = () => {
-      return this.#vel.copy().normalize().mult(-FRICTION_CONSTANT);
-  }
+    if (FRICTION_CONSTANT > this.#vel.mag()) {
+      return this.#vel.copy().mult(-1);
+    }
+
+    return this.#vel
+      .copy()
+      .normalize()
+      .mult(-FRICTION_CONSTANT);
+  };
 
   // Calculates separation force from other points in others.
   // Others is an array of position vectors.
-  #calcSeparationForce = (others) => {
-        // !!! implement
-      return 0;
-  }
+  #calcSeparationForce = others => {
+    // !!! implement
+    return 0;
+  };
 }

@@ -1,5 +1,5 @@
-MIN_STARTING_VELOCITY = 3;
-MAX_STARTING_VELOCITY = 4;
+MIN_STARTING_VELOCITY = 8;
+MAX_STARTING_VELOCITY = 9;
 VERTEXES_PER_BLOB = 11;
 
 let blob;
@@ -12,7 +12,13 @@ function setup() {
 
   const center = createVector(random(width), random(height));
   const blobId = 0;
-  blob = new Blob(center, blobId, VERTEXES_PER_BLOB, MIN_STARTING_VELOCITY, MAX_STARTING_VELOCITY)
+  blob = new Blob(
+    center,
+    blobId,
+    VERTEXES_PER_BLOB,
+    MIN_STARTING_VELOCITY,
+    MAX_STARTING_VELOCITY
+  );
 }
 
 function draw() {
