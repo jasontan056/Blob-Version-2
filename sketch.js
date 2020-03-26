@@ -5,13 +5,22 @@ CREATE_BLOB_PROB = 0.05;
 
 const blobs = [];
 let blobId = 0;
-let quadTree;
 
 function setup() {
   createCanvas(800, 800);
 
   // !!!
   randomSeed(1);
+
+  const center = createVector(random(width), random(height));
+  const blobId = 0;
+  blob = new Blob(
+    center,
+    blobId,
+    VERTEXES_PER_BLOB,
+    MIN_STARTING_VELOCITY,
+    MAX_STARTING_VELOCITY
+  );
 }
 
 function draw() {
