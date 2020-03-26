@@ -11,9 +11,6 @@ let quadTree;
 
 function setup() {
   createCanvas(800, 800);
-
-  // !!!
-  randomSeed(1);
 }
 
 function draw() {

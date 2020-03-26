@@ -22,7 +22,6 @@ class Blob {
     }
   }
 
-  // !!! will have a vertexes array that is a quadtree filled with all vertexes on the screen.
   update(vertexQuadTree) {
     for (let vertex of this.#vertexes) {
       const range = new Circle(vertex.pos.x, vertex.pos.y, NEARBY_RADIUS);
