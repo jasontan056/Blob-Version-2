@@ -38,4 +38,10 @@ class Blob {
     strokeWeight(3);
     this.#vertexes.forEach(vertex => point(vertex.pos.x, vertex.pos.y));
   }
+
+  getVertexPositions() {
+    return this.#vertexes.map(vertex => {
+      return { x: vertex.pos.x, y: vertex.pos.y, blobId: this.#blobId };
+    });
+  }
 }

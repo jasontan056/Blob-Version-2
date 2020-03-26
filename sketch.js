@@ -1,10 +1,13 @@
-MIN_STARTING_VELOCITY = 4;
-MAX_STARTING_VELOCITY = 7;
-VERTEXES_PER_BLOB = 50;
-CREATE_BLOB_PROB = 0.05;
+const MIN_STARTING_VELOCITY = 4;
+const MAX_STARTING_VELOCITY = 7;
+const VERTEXES_PER_BLOB = 50;
+const CREATE_BLOB_PROB = 0.05;
+
+const QUAD_TREE_CAPACITY = 4;
 
 const blobs = [];
 let blobId = 0;
+let quadTree;
 
 function setup() {
   createCanvas(800, 800);
@@ -27,6 +30,21 @@ function draw() {
     );
 
     blobId++;
+  }
+
+  // Create quadtree
+  const boundary = new Rectangle(width / 2, height / 2, width, height);
+  quadTree = new QuadTree(boundary, QUAD_TREE_CAPACITY);
+  for (let blob of blobs) {
+    const vertexPositions = blob.getVertexPositions();
+    for (vertexPosition of vertexPositions) {
+      const point = new Point(
+        vertexPosition.x,
+        vertexPosition.y,
+        vertexPosition
+      );
+      quadTree.insert(point);
+    }
   }
 
   for (let blob of blobs) {
