@@ -3,21 +3,15 @@ class Blob {
   #vertexes = [];
   #color = [random(255), random(255), random(200)];
 
-  constructor(
-    centerPosition,
-    blobId,
-    numVertexes,
-    minStartingVelocity,
-    maxStartingVelocity
-  ) {
+  constructor(centerPosition, blobId, numVertexes, startingVelocityMag) {
     this.#blobId = blobId;
-
-    const velMag = random(minStartingVelocity, maxStartingVelocity);
 
     let angle = 0;
     const angleInc = TWO_PI / numVertexes;
     for (let i = 0; i < numVertexes; i++) {
-      const startingVelocity = p5.Vector.fromAngle(angle).setMag(velMag);
+      const startingVelocity = p5.Vector.fromAngle(angle).setMag(
+        startingVelocityMag
+      );
       this.#vertexes.push(new Vertex(centerPosition.copy(), startingVelocity));
 
       angle += angleInc;
