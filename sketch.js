@@ -11,16 +11,6 @@ function setup() {
 
   // !!!
   randomSeed(1);
-
-  const center = createVector(random(width), random(height));
-  const blobId = 0;
-  blob = new Blob(
-    center,
-    blobId,
-    VERTEXES_PER_BLOB,
-    MIN_STARTING_VELOCITY,
-    MAX_STARTING_VELOCITY
-  );
 }
 
 function draw() {
