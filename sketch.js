@@ -36,19 +36,14 @@ function draw() {
   const boundary = new Rectangle(width / 2, height / 2, width, height);
   quadTree = new QuadTree(boundary, QUAD_TREE_CAPACITY);
   for (let blob of blobs) {
-    const vertexPositions = blob.getVertexPositions();
-    for (vertexPosition of vertexPositions) {
-      const point = new Point(
-        vertexPosition.x,
-        vertexPosition.y,
-        vertexPosition
-      );
+    for (vertex of blob.vertexes) {
+      const point = new Point(vertex.pos.x, vertex.pos.y, vertex);
       quadTree.insert(point);
     }
   }
 
   for (let blob of blobs) {
-    blob.update();
+    blob.update(quadTree);
     blob.draw();
   }
 }

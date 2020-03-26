@@ -1,3 +1,5 @@
+const NEARBY_RADIUS = 10;
+
 class Blob {
   #blobId;
   #vertexes = [];
@@ -12,17 +14,24 @@ class Blob {
       const startingVelocity = p5.Vector.fromAngle(angle).setMag(
         startingVelocityMag
       );
-      this.#vertexes.push(new Vertex(centerPosition.copy(), startingVelocity));
+      this.#vertexes.push(
+        new Vertex(this.#blobId, centerPosition.copy(), startingVelocity)
+      );
 
       angle += angleInc;
     }
   }
 
   // !!! will have a vertexes array that is a quadtree filled with all vertexes on the screen.
-  update() {
-    this.#vertexes.forEach(vertex => {
-      vertex.update();
-    });
+  update(vertexQuadTree) {
+    for (let vertex of this.#vertexes) {
+      const range = new Circle(vertex.pos.x, vertex.pos.y, NEARBY_RADIUS);
+      const nearbyVertexes = vertexQuadTree
+        .query(range)
+        .filter(point => point.userData.blobId != this.#blobId)
+        .map(point => point.userData);
+      vertex.update(nearbyVertexes);
+    }
   }
 
   draw() {
@@ -39,9 +48,7 @@ class Blob {
     this.#vertexes.forEach(vertex => point(vertex.pos.x, vertex.pos.y));
   }
 
-  getVertexPositions() {
-    return this.#vertexes.map(vertex => {
-      return { x: vertex.pos.x, y: vertex.pos.y, blobId: this.#blobId };
-    });
+  get vertexes() {
+    return this.#vertexes;
   }
 }
